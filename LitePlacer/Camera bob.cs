@@ -14,7 +14,7 @@ using AForge.Video.DirectShow;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
-
+//test
 
 
 namespace LitePlacer
