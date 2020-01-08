@@ -106,8 +106,8 @@ namespace LitePlacer
 
             StartingUp = true;
             this.Size = new Size(1280, 900);
-            //DisplayText("Application Start", KnownColor.Black, true);
-            //DisplayText("Version: " + Assembly.GetEntryAssembly().GetName().Version.ToString() + ", build date: " + BuildDate());
+            DisplayText("Application Start", KnownColor.Black, true);
+            DisplayText("Version: " + Assembly.GetEntryAssembly().GetName().Version.ToString() + ", build date: " + BuildDate());
 
             SettingsOps = new AppSettings(this);
 
@@ -265,7 +265,7 @@ namespace LitePlacer
             }
             catch
             {
-                //DisplayText("Could not read http://www.liteplacer.com/Downloads/release.txt, update info not available.");
+                DisplayText("Could not read http://www.liteplacer.com/Downloads/release.txt, update info not available.");
                 UpdateDescription = "";
                 return false;
             }
@@ -322,7 +322,7 @@ namespace LitePlacer
         {
 
             Button button = sender as Button;
-            //DisplayText(button.Text.ToString(), KnownColor.DarkGreen);
+            DisplayText(button.Text.ToString(), KnownColor.DarkGreen);
         }
         // ==============================================================================================
 
@@ -425,7 +425,7 @@ namespace LitePlacer
             DisableLog_checkBox.Checked = Setting.General_MuteLogging;
             MotorPower_timer.Enabled = true;
             StartingUp = false;
-            //DisplayText("Startup completed.");
+            DisplayText("Startup completed.");
            
         }
 
@@ -539,7 +539,7 @@ namespace LitePlacer
                 //Cnc.PumpIsOn = true;        // so it will be turned off, no matter what we think the status
                 //Cnc.PumpOff_NoWorkaround();
                 Cnc.VacuumDefaultSetting();
-                //CNC_Write_m("{\"md\":\"\"}");  // motor power off
+                CNC_Write_m("{\"md\":\"\"}");  // motor power off
             }
             Cnc.Close();
 
@@ -675,7 +675,7 @@ namespace LitePlacer
                 {
                     if (!File.Exists(FileName))
                     {
-                        //DisplayText("Didn't find file " + FileName);
+                        DisplayText("Didn't find file " + FileName);
                         return;   // Didint find the specified file name nor filename+v2 (these would be the default files)
                     }
                 }
@@ -697,12 +697,12 @@ namespace LitePlacer
                     dgv.Rows.Clear();
                     if (Ver2)
                     {
-                        //DisplayText("Reading v2 format file " + FileName);
+                        DisplayText("Reading v2 format file " + FileName);
                         first = br.ReadInt32();
                     }
                     else
                     {
-                        //DisplayText("Reading v1 format file " + FileName);
+                        DisplayText("Reading v1 format file " + FileName);
                     }
 
                     int cols = br.ReadInt32();
@@ -979,7 +979,7 @@ namespace LitePlacer
         {
             if (!File.Exists(filename))
             {
-                //DisplayText("Did not find file " + filename);
+                DisplayText("Did not find file " + filename);
                 return;
             }
 
@@ -1018,7 +1018,7 @@ namespace LitePlacer
                     if (Headers.Contains("WidthColumn"))
                     {
                         // read in to old format datagridview and convert to new format
-                        //DisplayText("Loading tapes without nozzles data");
+                        DisplayText("Loading tapes without nozzles data");
                         LoadDataGrid(filename, TapesOld_dataGridView, DataTableType.Tapes);
                         // convert to new
                         double X;
@@ -1111,7 +1111,7 @@ namespace LitePlacer
                     else
                     {
                         // read in new format 
-                        //DisplayText("Loading tapes with nozzles data");
+                        DisplayText("Loading tapes with nozzles data");
                         LoadDataGrid(filename, Tapes_dataGridView, DataTableType.Tapes);
                     }
                 }
@@ -1140,7 +1140,7 @@ namespace LitePlacer
             try
             {
                 // read in to old format datagridview and convert to new format
-                //DisplayText("Loading v1 tapes data");
+                DisplayText("Loading v1 tapes data");
                 LoadDataGrid(filename, Tapes_dataGridView, DataTableType.Tapes);
                 // convert to new
                 double X;
@@ -1530,13 +1530,13 @@ namespace LitePlacer
                 double Ztarget;
                 if (!double.TryParse(Setting.General_ZtoPCB.ToString().Replace(',', '.'), out Ztarget))
                 {
-                    //DisplayText("Z to PCB internal value error!");
+                    DisplayText("Z to PCB internal value error!");
                     return;
                 }
                 double Zadd;
                 if (!double.TryParse(Setting.General_BelowPCB_Allowance.ToString().Replace(',', '.'), out Zadd))
                 {
-                    //DisplayText("Below PCB allowance internal value error!");
+                    DisplayText("Below PCB allowance internal value error!");
                     return;
                 }
                 Ztarget += Zadd;
@@ -1752,7 +1752,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("No camera running");
+                DisplayText("No camera running");
                 return;
             };
 
@@ -1777,8 +1777,8 @@ namespace LitePlacer
             Xmm = Xmm / cam.GetDisplayZoom();	// Might also be zoomed for processing
             Ymm = Ymm / cam.GetDisplayZoom();
 
-            //DisplayText("BoxTo_mms: MouseX: " + MouseX.ToString() + ", X: " + X.ToString() + ", Xmm: " + Xmm.ToString());
-            //DisplayText("BoxTo_mms: MouseY: " + MouseY.ToString() + ", Y: " + Y.ToString() + ", Ymm: " + Ymm.ToString());
+            DisplayText("BoxTo_mms: MouseX: " + MouseX.ToString() + ", X: " + X.ToString() + ", Xmm: " + Xmm.ToString());
+            DisplayText("BoxTo_mms: MouseY: " + MouseY.ToString() + ", Y: " + Y.ToString() + ", Ymm: " + Ymm.ToString());
         }
 
 
@@ -1788,7 +1788,7 @@ namespace LitePlacer
         {
             if (MouseButtons == MouseButtons.Left)
             {
-                //DisplayText("X: " + MouseX.ToString() + ", Y: " + MouseY.ToString());
+                DisplayText("X: " + MouseX.ToString() + ", Y: " + MouseY.ToString());
             }
         }
 
@@ -1973,7 +1973,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("X value error", KnownColor.Red, true);
+                DisplayText("X value error", KnownColor.Red, true);
                 return;
             }
 
@@ -1983,7 +1983,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("Y value error", KnownColor.Red, true);
+                DisplayText("Y value error", KnownColor.Red, true);
                 return;
             }
 
@@ -1993,7 +1993,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("Z value error", KnownColor.Red, true);
+                DisplayText("Z value error", KnownColor.Red, true);
                 return;
             }
 
@@ -2177,7 +2177,7 @@ namespace LitePlacer
                 return false;
             }
 
-            //DisplayText("Probing Z, timeout value: " + CNC_HomingTimeout.ToString());
+            DisplayText("Probing Z, timeout value: " + CNC_HomingTimeout.ToString());
 
             Cnc.ProbingMode(true);
             Cnc.Homing = true;
@@ -2274,7 +2274,7 @@ namespace LitePlacer
                         return false;
                     }
                 }
-                //DisplayText("Measuring nozzle, min. size " + MinSize.ToString() + ", max. size" + MaxSize.ToString());
+                DisplayText("Measuring nozzle, min. size " + MinSize.ToString() + ", max. size" + MaxSize.ToString());
                 UpCamera.MaxSize = MaxSize / Setting.UpCam_XmmPerPixel;
                 UpCamera.MinSize = MinSize / Setting.UpCam_XmmPerPixel;
                 UpCamera.SizeLimited = true;
@@ -2365,7 +2365,7 @@ namespace LitePlacer
             {
                 return false;
             }
-            //DisplayText("Homing axis " + axis + ", timeout value: " + CNC_HomingTimeout.ToString());
+            DisplayText("Homing axis " + axis + ", timeout value: " + CNC_HomingTimeout.ToString());
 
             Cnc.Homing = true;
             if (!CNC_Write_m("$H" + axis))
@@ -2380,7 +2380,7 @@ namespace LitePlacer
             //CNC_Write_m("G92x0y0z0");
             CNC_Write_m("G90");
             Cnc.Homing = false;
-            //DisplayText("Homing " + axis + " done.");
+            DisplayText("Homing " + axis + " done.");
             switch (axis.ToLower())
             {
                 case "x":
@@ -2459,7 +2459,7 @@ namespace LitePlacer
             };
 
             CNC_BlockingWriteDone = false;
-            //DisplayText("starting thread CNC_BlockingWrite_thread " + s, KnownColor.DarkRed);
+            DisplayText("starting thread CNC_BlockingWrite_thread " + s, KnownColor.DarkRed);
             Thread t = new Thread(() => CNC_BlockingWrite_thread(s));
             t.IsBackground = true;
             t.Name = "CNC_Write_m";
@@ -2535,7 +2535,7 @@ namespace LitePlacer
         {
             if ((Cnc.CurrentZ > 5) && _Zguard)
             {
-                //DisplayText("Nozzle down error.");
+                DisplayText("Nozzle down error.");
                 ShowMessageBox(
                    "Attempt to Move while Nozzle is down.",
                    "Danger to Nozzle",
@@ -2924,7 +2924,7 @@ namespace LitePlacer
                     Thread.Sleep(80); // next frame + vibration damping
                     if (tries >= 7)
                     {
-                       // DisplayText("Failed in 8 tries.");
+                        DisplayText("Failed in 8 tries.");
                         ShowMessageBox(
                             "Optical positioning: Can't find Feature",
                             "No found",
@@ -2935,7 +2935,7 @@ namespace LitePlacer
                 }
                 X = X * Setting.DownCam_XmmPerPixel;
                 Y = -Y * Setting.DownCam_YmmPerPixel;
-                //DisplayText("Optical positioning, round " + count.ToString() + ", dX= " + X.ToString() + ", dY= " + Y.ToString() + ", tries= " + tries.ToString());
+                DisplayText("Optical positioning, round " + count.ToString() + ", dX= " + X.ToString() + ", dY= " + Y.ToString() + ", tries= " + tries.ToString());
                 // If we are further than move tolerance, go there
                 if ((Math.Abs(X) > MoveTolerance) || (Math.Abs(Y) > MoveTolerance))
                 {
@@ -2999,7 +2999,7 @@ namespace LitePlacer
             while ((Successes < 7) && (Tries < 20));
             if (Tries >= 20)
             {
-                //DisplayText("Optical homing failed, 20 tries did not give 7 results.");
+                DisplayText("Optical homing failed, 20 tries did not give 7 results.");
                 return false;
             }
             Xlist.Sort();
@@ -3044,7 +3044,7 @@ namespace LitePlacer
                     ZGuardOn();
                     return false;
                 };
-                //DisplayText("Z back up Z");  // Z back up
+                DisplayText("Z back up Z");  // Z back up
                 if (!CNC_Z_m(0))
                 {
                     ZGuardOn();
@@ -3159,11 +3159,11 @@ namespace LitePlacer
                 cam.Active = true;
                 if (cam == DownCamera)
                 {
-                    //DisplayText("DownCamera activated");
+                    DisplayText("DownCamera activated");
                 }
                 else
                 {
-                    //DisplayText("UpCamera activated");
+                    DisplayText("UpCamera activated");
                 }
                 return;
             };
@@ -3211,20 +3211,20 @@ namespace LitePlacer
             };
 
             DownCamera.Active = false;
-            if (Setting.DowncamMoniker == "")
-            {
-                // Very first runs, no attempt to connect cameras yet. This is ok.
-                UpdateCameraCameraStatus_label();
-                return true;
-            };
+            //if (Setting.DowncamMoniker == "")
+            //{
+            //    // Very first runs, no attempt to connect cameras yet. This is ok.
+            //    UpdateCameraCameraStatus_label();
+            //    return true;
+            //};
             // Check that the device exists
             List<string> monikers = DownCamera.GetMonikerStrings();
-            if (!monikers.Contains(Setting.DowncamMoniker))
-            {
-                DisplayText("Downcamera moniker not found. Moniker: " + Setting.DowncamMoniker);
-                UpdateCameraCameraStatus_label();
-                return false;
-            }
+            //if (!monikers.Contains(Setting.DowncamMoniker))
+            //{
+            //    DisplayText("Downcamera moniker not found. Moniker: " + Setting.DowncamMoniker);
+            //    UpdateCameraCameraStatus_label();
+            //    return false;
+            //}
 
             if (Setting.UpcamMoniker == Setting.DowncamMoniker)
             {
@@ -3278,7 +3278,7 @@ namespace LitePlacer
             List<string> monikers = UpCamera.GetMonikerStrings();
             if (!monikers.Contains(Setting.UpcamMoniker))
             {
-               // DisplayText("Upcamera moniker not found. Moniker: " + Setting.UpcamMoniker);
+                DisplayText("Upcamera moniker not found. Moniker: " + Setting.UpcamMoniker);
                 UpdateCameraCameraStatus_label();
                 return false;
             }
@@ -3502,7 +3502,7 @@ namespace LitePlacer
                 for (int i = 0; i < Devices.Count; i++)
                 {
                     DownCam_comboBox.Items.Add(i.ToString() + ": " + Devices[i]);
-                    //DisplayText("Device " + i.ToString() + ": " + Devices[i]);
+                    DisplayText("Device " + i.ToString() + ": " + Devices[i]);
                 }
             }
             else
@@ -3519,7 +3519,7 @@ namespace LitePlacer
             {
                 DownCam_comboBox.SelectedIndex = 0;  // default to first
             }
-            //DisplayText("DownCam_comboBox.SelectedIndex= " + DownCam_comboBox.SelectedIndex.ToString());
+            DisplayText("DownCam_comboBox.SelectedIndex= " + DownCam_comboBox.SelectedIndex.ToString());
         }
 
         // ====
@@ -3533,7 +3533,7 @@ namespace LitePlacer
                 for (int i = 0; i < Devices.Count; i++)
                 {
                     UpCam_comboBox.Items.Add(i.ToString() + ": " + Devices[i]);
-                    //DisplayText("Device " + i.ToString() + ": " + Devices[i]);
+                    DisplayText("Device " + i.ToString() + ": " + Devices[i]);
                 }
             }
             else
@@ -3542,12 +3542,12 @@ namespace LitePlacer
             }
             if ((Devices.Count > Setting.UpCam_index) && (Setting.UpCam_index > 0))
             {
-               // DisplayText("UpCam_comboBox.SelectedIndex= " + Setting.UpCam_index.ToString());
+                DisplayText("UpCam_comboBox.SelectedIndex= " + Setting.UpCam_index.ToString());
                 UpCam_comboBox.SelectedIndex = Setting.UpCam_index;
             }
             else
             {
-                //DisplayText("UpCam_comboBox.SelectedIndex= 0");
+                DisplayText("UpCam_comboBox.SelectedIndex= 0");
                 UpCam_comboBox.SelectedIndex = 0;  // default to first
             }
 
@@ -3613,7 +3613,7 @@ namespace LitePlacer
 
         private void ConnectDownCamera_button_Click(object sender, EventArgs e)
         {
-            //DisplayText("DownCam_comboBox.SelectedIndex= " + DownCam_comboBox.SelectedIndex.ToString());
+            DisplayText("DownCam_comboBox.SelectedIndex= " + DownCam_comboBox.SelectedIndex.ToString());
             Setting.DownCam_index = DownCam_comboBox.SelectedIndex;
             List<string> Monikers = DownCamera.GetMonikerStrings();
             Setting.DowncamMoniker = Monikers[DownCam_comboBox.SelectedIndex];
@@ -3638,7 +3638,7 @@ namespace LitePlacer
         // ====
         private void ConnectUpCamera_button_Click(object sender, EventArgs e)
         {
-            //DisplayText("UpCam_comboBox.SelectedIndex= " + UpCam_comboBox.SelectedIndex.ToString());
+            DisplayText("UpCam_comboBox.SelectedIndex= " + UpCam_comboBox.SelectedIndex.ToString());
             Setting.UpCam_index = UpCam_comboBox.SelectedIndex;
             List<string> Monikers = UpCamera.GetMonikerStrings();
             Setting.UpcamMoniker = Monikers[UpCam_comboBox.SelectedIndex];
@@ -4336,9 +4336,9 @@ namespace LitePlacer
             Setting.UpCam_PositionX = Cnc.CurrentX;
             UpcamPositionY_textBox.Text = Cnc.CurrentY.ToString("0.000", CultureInfo.InvariantCulture);
             Setting.UpCam_PositionY = Cnc.CurrentY;
-            //DisplayText("True position (with Nozzle offset):");
-            //DisplayText("X: " + (Cnc.CurrentX - Setting.DownCam_NozzleOffsetX).ToString());
-           // DisplayText("Y: " + (Cnc.CurrentY - Setting.DownCam_NozzleOffsetY).ToString());
+            DisplayText("True position (with Nozzle offset):");
+            DisplayText("X: " + (Cnc.CurrentX - Setting.DownCam_NozzleOffsetX).ToString());
+            DisplayText("Y: " + (Cnc.CurrentY - Setting.DownCam_NozzleOffsetY).ToString());
         }
 
         private void GotoUpCamPosition_button_Click(object sender, EventArgs e)
@@ -4585,7 +4585,7 @@ namespace LitePlacer
             }
             if (Cnc.Controlboard == CNC.ControlBoardType.TinyG)
             {
-                //DisplayText("Reading TinyG settings:");
+                DisplayText("Reading TinyG settings:");
                 if (!LoopParameters(typeof(BoardSettings.TinyG)))
                 {
                     return false;
@@ -4593,7 +4593,7 @@ namespace LitePlacer
             }
             else if (Cnc.Controlboard == CNC.ControlBoardType.qQuintic)
             {
-                //DisplayText("Writing qQuintic settings:");
+                DisplayText("Writing qQuintic settings:");
                 if (!WriteqQuinticSettings())
                 {
                     return false;
@@ -4601,7 +4601,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("Unknown board!");
+                DisplayText("Unknown board!");
                 return false;
             }
 
@@ -4928,17 +4928,17 @@ namespace LitePlacer
             if (value == "1")
             {
                 Cnc.Controlboard = CNC.ControlBoardType.TinyG;
-                //DisplayText("TinyG board found.");
+                DisplayText("TinyG board found.");
             }
             else if (value == "3")
             {
                 Cnc.Controlboard = CNC.ControlBoardType.qQuintic;
-                //DisplayText("qQuintic board found.");
+                DisplayText("qQuintic board found.");
             }
             else
             {
                 Cnc.Controlboard = CNC.ControlBoardType.other;
-                //DisplayText("Unknown control board.");
+                DisplayText("Unknown control board.");
             }
         }
 
@@ -6307,7 +6307,7 @@ namespace LitePlacer
         {
             if (DisableLog_checkBox.Checked)
             {
-                //DisplayText("** Logging disabled **", KnownColor.Black, true);
+                DisplayText("** Logging disabled **", KnownColor.Black, true);
             }
         }
 
@@ -6495,6 +6495,7 @@ namespace LitePlacer
             SetDownCameraDefaults();
             DownCamera.ImageBox = Calibrate_pictureBox;
             SelectCamera(DownCamera);
+            StartDownCamera_m();  //bob
             if (!DownCamera.IsRunning())
             {
                 ShowMessageBox(
@@ -7654,7 +7655,7 @@ namespace LitePlacer
                 }
                 if (EverythingPlaced)
                 {
-                    //DisplayText("All components on row " + JobData_GridView.Rows[RowNo].Cells["ComponentType"].Value.ToString() + " already placed.", KnownColor.DarkRed);
+                    DisplayText("All components on row " + JobData_GridView.Rows[RowNo].Cells["ComponentType"].Value.ToString() + " already placed.", KnownColor.DarkRed);
                     return true;
                 }
             }
@@ -7890,11 +7891,11 @@ namespace LitePlacer
 
         private bool PlaceComponent_m(string Component, int GroupRow, bool FirstInRow)
         {
-            //DisplayText("PlaceComponent_m: Component: " + Component + ", Row:" + GroupRow.ToString(), KnownColor.Blue);
+            DisplayText("PlaceComponent_m: Component: " + Component + ", Row:" + GroupRow.ToString(), KnownColor.Blue);
             // Skip fiducials
             if (JobData_GridView.Rows[GroupRow].Cells["GroupMethod"].Value.ToString() == "Fiducials")
             {
-                //DisplayText("PlaceComponent_m(): Skip fiducials");
+                DisplayText("PlaceComponent_m(): Skip fiducials");
                 return true;
             }
             // If component is specified, find its row in CAD data:
@@ -7939,7 +7940,7 @@ namespace LitePlacer
                     double X;
                     if (!double.TryParse(CadData_GridView.Rows[CADdataRow].Cells["X_nominal"].Value.ToString().Replace(',', '.'), out X))
                     {
-                        //DisplayText("Bad data X nominal at component " + Component);
+                        DisplayText("Bad data X nominal at component " + Component);
                     }
                     X = X + Setting.General_JigOffsetX + Setting.Job_Xoffset;
                     CadData_GridView.Rows[CADdataRow].Cells["X_machine"].Value = X.ToString();
@@ -7947,7 +7948,7 @@ namespace LitePlacer
                     double Y;
                     if (!double.TryParse(CadData_GridView.Rows[CADdataRow].Cells["Y_nominal"].Value.ToString().Replace(',', '.'), out Y))
                     {
-                        //DisplayText("Bad data Y nominal at component " + Component);
+                        DisplayText("Bad data Y nominal at component " + Component);
                     }
                     Y = Y + Setting.General_JigOffsetY + Setting.Job_Yoffset;
                     CadData_GridView.Rows[CADdataRow].Cells["Y_machine"].Value = Y.ToString();
@@ -8052,7 +8053,7 @@ namespace LitePlacer
                     {
                         if (cell.Value.ToString() == "True")
                         {
-                            //DisplayText(Component + " already placed");
+                            DisplayText(Component + " already placed");
                             break;
                         }
                     }
@@ -8264,14 +8265,14 @@ namespace LitePlacer
             string Z_str = Tapes_dataGridView.Rows[TapeNumber].Cells["Z_Pickup_Column"].Value.ToString();
             if (Z_str == "--")
             {
-                //DisplayText("PickUpPart_m(): Probing pickup Z", KnownColor.Blue);
+                DisplayText("PickUpPart_m(): Probing pickup Z", KnownColor.Blue);
                 if (!Nozzle_ProbeDown_m())
                 {
                     return false;
                 }
                 double Zpickup = Cnc.CurrentZ - Setting.General_PlacementBackOff + Setting.Placement_Depth;
                 Tapes_dataGridView.Rows[TapeNumber].Cells["Z_Pickup_Column"].Value = Zpickup.ToString();
-                //DisplayText("PickUpPart_m(): Probed Z= " + Cnc.CurrentZ.ToString());
+                DisplayText("PickUpPart_m(): Probed Z= " + Cnc.CurrentZ.ToString());
             }
             else
             {
@@ -8285,14 +8286,14 @@ namespace LitePlacer
                     return false;
                 };
                 // Z += 0.5;
-                //DisplayText("PickUpPart_m(): Part pickup, Z" + Z.ToString(), KnownColor.Blue);
+                DisplayText("PickUpPart_m(): Part pickup, Z" + Z.ToString(), KnownColor.Blue);
                 if (!CNC_Z_m(Z))
                 {
                     return false;
                 }
             }
             Cnc.VacuumOn();
-            //DisplayText("PickUpPart_m(): Nozzle up");
+            DisplayText("PickUpPart_m(): Nozzle up");
             if (!CNC_Z_m(0))
             {
                 return false;
@@ -8375,7 +8376,7 @@ namespace LitePlacer
             // If this succeeds, we update next hole location at the end, but these values are measured at start
             double HoleX = 0;
             double HoleY = 0;
-            //DisplayText("PickUpPart_m(), tape no: " + TapeNumber.ToString());
+            DisplayText("PickUpPart_m(), tape no: " + TapeNumber.ToString());
             // Go to part location:
             Cnc.VacuumOff();
             if (!Tapes.GotoNextPartByMeasurement_m(TapeNumber, out HoleX, out HoleY))
@@ -8438,12 +8439,12 @@ namespace LitePlacer
 
             if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["FirstX_Column"].Value.ToString().Replace(',', '.'), out FirstX))
             {
-                //DisplayText("Bad data, X column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                DisplayText("Bad data, X column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                 return false;
             }
             if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["FirstY_Column"].Value.ToString().Replace(',', '.'), out FirstY))
             {
-                //DisplayText("Bad data, Y column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                DisplayText("Bad data, Y column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                 return false;
             }
             double LastX = 0.0;
@@ -8453,7 +8454,7 @@ namespace LitePlacer
             {
                 if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["LastX_Column"].Value.ToString().Replace(',', '.'), out LastX))
                 {
-                    //DisplayText("Bad data, Last X column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                    DisplayText("Bad data, Last X column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                     return false;
                 }
             }
@@ -8461,19 +8462,19 @@ namespace LitePlacer
             {
                 if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["LastY_Column"].Value.ToString().Replace(',', '.'), out LastY))
                 {
-                    //DisplayText("Bad data, Last Y column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                    DisplayText("Bad data, Last Y column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                     return false;
                 }
             }
             double pitch;
             if (Tapes_dataGridView.Rows[TapeNum].Cells["Pitch_Column"].Value == null)
             {
-                //DisplayText("Bad data, Pitch column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                DisplayText("Bad data, Pitch column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                 return false;
             }
             if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["Pitch_Column"].Value.ToString().Replace(',', '.'), out pitch))
             {
-                //DisplayText("Bad data, Pitch column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                DisplayText("Bad data, Pitch column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                 return false;
             }
 
@@ -8494,7 +8495,7 @@ namespace LitePlacer
                 int increments;
                 if (!int.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["NextPart_Column"].Value.ToString(), out increments))
                 {
-                    //DisplayText("Bad data, Next column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                    DisplayText("Bad data, Next column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                     return false;
                 }
                 increments = increments - 1;
@@ -8517,7 +8518,7 @@ namespace LitePlacer
             {
                 if (!double.TryParse(Tapes_dataGridView.Rows[TapeNum].Cells["RotationDirect_Column"].Value.ToString().Replace(',', '.'), out A))
                 {
-                    //DisplayText("Bad data, A correction column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
+                    DisplayText("Bad data, A correction column, Tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString());
                     return false;
                 }
             }
@@ -8534,8 +8535,8 @@ namespace LitePlacer
             {
                 return false;
             }
-            //DisplayText("PickUpPartWithDirectCoordinates_m(), tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString()
-            //    + ", X: " + X.ToString("0.000") + ", Y: " + Y.ToString("0.000") + ", A: " + A.ToString("0.000"));
+            DisplayText("PickUpPartWithDirectCoordinates_m(), tape " + Tapes_dataGridView.Rows[TapeNum].Cells["Id_Column"].Value.ToString()
+                + ", X: " + X.ToString("0.000") + ", Y: " + Y.ToString("0.000") + ", A: " + A.ToString("0.000"));
 
             if (!Nozzle.Move_m(X, Y, A))
             {
@@ -8564,14 +8565,14 @@ namespace LitePlacer
             string Z_str = Tapes_dataGridView.Rows[TapeNum].Cells["Z_Place_Column"].Value.ToString();
             if (Z_str == "--")
             {
-                //DisplayText("PutPartDown_m(): Probing placement Z", KnownColor.Blue);
+                DisplayText("PutPartDown_m(): Probing placement Z", KnownColor.Blue);
                 if (!Nozzle_ProbeDown_m())
                 {
                     return false;
                 };
                 double Zplace = Cnc.CurrentZ - Setting.General_PlacementBackOff + Setting.Placement_Depth;
                 Tapes_dataGridView.Rows[TapeNum].Cells["Z_Place_Column"].Value = Zplace.ToString();
-                //DisplayText("PutPartDown_m(): Probed placement Z= " + Cnc.CurrentZ.ToString());
+                DisplayText("PutPartDown_m(): Probed placement Z= " + Cnc.CurrentZ.ToString());
             }
             else
             {
@@ -8584,7 +8585,7 @@ namespace LitePlacer
                         MessageBoxButtons.OK);
                     return false;
                 };
-                //DisplayText("PlacePart_m(): Part down, Z" + Z.ToString(), KnownColor.Blue);
+                DisplayText("PlacePart_m(): Part down, Z" + Z.ToString(), KnownColor.Blue);
                 if (!CNC_Z_m(Z))
                 {
                     return false;
@@ -8594,7 +8595,7 @@ namespace LitePlacer
             //    "Debug: Nozzle down at component." + Component,
             //    "Debug",
             //    MessageBoxButtons.OK);
-            //DisplayText("PlacePart_m(): Nozzle up.");
+            DisplayText("PlacePart_m(): Nozzle up.");
             Cnc.VacuumOff();
             if (!CNC_Z_m(0))  // back up
             {
@@ -8613,14 +8614,14 @@ namespace LitePlacer
         {
             if (Probe)
             {
-                //DisplayText("PutLoosePartDown_m(): Probing placement Z");
+                DisplayText("PutLoosePartDown_m(): Probing placement Z");
                 if (!Nozzle_ProbeDown_m())
                 {
                     return false;
                 }
                 LoosePartPlaceZ = Cnc.CurrentZ - Setting.General_PlacementBackOff + Setting.Placement_Depth;
-                //DisplayText("PutLoosePartDown_m(): probed Z= " + Cnc.CurrentZ.ToString());
-                //DisplayText("PutLoosePartDown_m(): placement Z= " + LoosePartPlaceZ.ToString());
+                DisplayText("PutLoosePartDown_m(): probed Z= " + Cnc.CurrentZ.ToString());
+                DisplayText("PutLoosePartDown_m(): placement Z= " + LoosePartPlaceZ.ToString());
             }
             else
             {
@@ -8629,7 +8630,7 @@ namespace LitePlacer
                     return false;
                 }
             }
-            //DisplayText("PutLoosePartDown_m(): Nozzle up.");
+            DisplayText("PutLoosePartDown_m(): Nozzle up.");
             Cnc.VacuumOff();
             if (!CNC_Z_m(0))  // back up
             {
@@ -8670,7 +8671,7 @@ namespace LitePlacer
                 return false;
             }
 
-            //DisplayText("Now fine tune part position. If done press ENTER");
+            DisplayText("Now fine tune part position. If done press ENTER");
 
             // Switch off slack compensation
             // save the present state to restore
@@ -8786,7 +8787,7 @@ namespace LitePlacer
 
         private bool PickUpLoosePart_m(bool Probe, bool Snapshot, int CADdataRow, string Component)
         {
-            //DisplayText("PickUpLoosePart_m: " + Probe.ToString() + ", " + Snapshot.ToString() + ", " + CADdataRow.ToString() + ", " + Component, KnownColor.Blue);
+            DisplayText("PickUpLoosePart_m: " + Probe.ToString() + ", " + Snapshot.ToString() + ", " + CADdataRow.ToString() + ", " + Component, KnownColor.Blue);
             if (!CNC_XY_m(Setting.General_PickupCenterX, Setting.General_PickupCenterY))
             {
                 return false;
@@ -8823,7 +8824,7 @@ namespace LitePlacer
                 }
                 X = X * Setting.DownCam_XmmPerPixel;
                 Y = -Y * Setting.DownCam_YmmPerPixel;
-                //DisplayText("PickUpLoosePart_m(): measurement " + i.ToString() + ", X: " + X.ToString() + ", Y: " + Y.ToString() + ", A: " + A.ToString());
+                DisplayText("PickUpLoosePart_m(): measurement " + i.ToString() + ", X: " + X.ToString() + ", Y: " + Y.ToString() + ", A: " + A.ToString());
                 if ((Math.Abs(X) < 2.0) && (Math.Abs(Y) < 2.0))
                 {
                     break;
@@ -8858,19 +8859,19 @@ namespace LitePlacer
             // pick it up
             if (Probe)
             {
-                //DisplayText("PickUpLoosePart_m(): Probing pickup Z");
+                DisplayText("PickUpLoosePart_m(): Probing pickup Z");
                 if (!Nozzle_ProbeDown_m())
                 {
                     DownCamera.Draw_Snapshot = true;
                     return false;
                 }
                 LoosePartPickupZ = Cnc.CurrentZ - Setting.General_PlacementBackOff + Setting.Placement_Depth;
-                //DisplayText("PickUpLoosePart_m(): Probed Z= " + Cnc.CurrentZ.ToString());
-                //DisplayText("PickUpLoosePart_m(): Pickup Z= " + LoosePartPickupZ.ToString());
+                DisplayText("PickUpLoosePart_m(): Probed Z= " + Cnc.CurrentZ.ToString());
+                DisplayText("PickUpLoosePart_m(): Pickup Z= " + LoosePartPickupZ.ToString());
             }
             else
             {
-                //DisplayText("PickUpLoosePart_m(): Part pickup, Z" + LoosePartPickupZ.ToString());
+                DisplayText("PickUpLoosePart_m(): Part pickup, Z" + LoosePartPickupZ.ToString());
                 if (!CNC_Z_m(LoosePartPickupZ))
                 {
                     DownCamera.Draw_Snapshot = true;
@@ -8878,7 +8879,7 @@ namespace LitePlacer
                 }
             }
             Cnc.VacuumOn();
-            //DisplayText("PickUpLoosePart_m(): Nozzle up");
+            DisplayText("PickUpLoosePart_m(): Nozzle up");
             if (!CNC_Z_m(0))
             {
                 DownCamera.Draw_Snapshot = true;
@@ -8927,7 +8928,7 @@ namespace LitePlacer
 
             int TapeNum = 0;
             string Component = CadData_GridView.Rows[CADdataRow].Cells["Component"].Value.ToString();
-            //DisplayText("PlacePart_m, Component: " + Component + ", CAD data row: " + CADdataRow.ToString(), KnownColor.Blue);
+            DisplayText("PlacePart_m, Component: " + Component + ", CAD data row: " + CADdataRow.ToString(), KnownColor.Blue);
 
             // Preparing:
             switch (Method)
@@ -9000,7 +9001,7 @@ namespace LitePlacer
             // Take the part to position. With snapshot, we want to fine tune it here:
             if (Method == "UpCam Snapshot")
             {
-                //DisplayText("PlacePart_m: take Upcam snapshot");
+                DisplayText("PlacePart_m: take Upcam snapshot");
                 // Take part to upcam
                 if (!CNC_XYA_m(Setting.UpCam_PositionX, Setting.UpCam_PositionY, 0.0))
                 {
@@ -9023,7 +9024,7 @@ namespace LitePlacer
 
             if ((Method == "DownCam Snapshot") || (Method == "UpCam Snapshot"))
             {
-                //DisplayText("PlacePart_m: Snapshot place");
+                DisplayText("PlacePart_m: Snapshot place");
                 // Take cam to where we think part is going. This might not be exactly right.
                 DownCamera.RotateSnapshot(A);
                 if (!CNC_XYA_m(X, Y, A))
@@ -9059,7 +9060,7 @@ namespace LitePlacer
             };
 
             // Take the part to position:
-            //DisplayText("PlacePart_m: goto placement position");
+            DisplayText("PlacePart_m: goto placement position");
             if (!Nozzle.Move_m(X, Y, A))
             {
                 // VacuumOff();  if the above failed CNC seems to be down; low chances that VacuumOff() would go thru either. 
@@ -9225,9 +9226,9 @@ namespace LitePlacer
             dX = X / (float)count;
             Y = -Y / Setting.UpCam_XmmPerPixel;
             dY = Y / (float)count;
-            //DisplayText("Component measurement:");
-            //DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture) + " (" + count.ToString() + " results out of 5)");
-            //DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
+            DisplayText("Component measurement:");
+            DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture) + " (" + count.ToString() + " results out of 5)");
+            DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
             return true;
         }
 
@@ -9470,7 +9471,7 @@ namespace LitePlacer
                 return false;
             }
             // Get ready for position measurements
-            //DisplayText("SetFiducialsMeasurement");
+            DisplayText("SetFiducialsMeasurement");
             SetFiducialsMeasurement();
             // move them to our array, checking the data:
             PhysicalComponent[] Fiducials = new PhysicalComponent[FiducialDesignators.Length];  // store the data here
@@ -9574,19 +9575,19 @@ namespace LitePlacer
             Loc.W = 1.0;
             Loc = transform.TransformPoint(Loc);
             Loc = Loc.NormalizeHomogeneous();
-            //DisplayText("Transform:");
-            //DisplayText("dX= " + (Loc.X).ToString());
-            //DisplayText("dY= " + Loc.Y.ToString());
+            DisplayText("Transform:");
+            DisplayText("dX= " + (Loc.X).ToString());
+            DisplayText("dY= " + Loc.Y.ToString());
             // We do need rotation. Find out by rotatíng a unit vector:
             Loc2.X = 1.0;
             Loc2.Y = 0.0;
             Loc2.W = 1.0;
             Loc2 = transform.TransformPoint(Loc2);
             Loc2 = Loc2.NormalizeHomogeneous();
-            //DisplayText("dX= " + Loc2.X.ToString());
-            //DisplayText("dY= " + Loc2.Y.ToString());
+            DisplayText("dX= " + Loc2.X.ToString());
+            DisplayText("dY= " + Loc2.Y.ToString());
             double angle = Math.Asin(Loc2.Y - Loc.Y) * 180.0 / Math.PI; // in degrees
-            //DisplayText("angle= " + angle.ToString());
+            DisplayText("angle= " + angle.ToString());
 
             // Calculate machine coordinates of all components:
             foreach (DataGridViewRow Row in CadData_GridView.Rows)
@@ -9633,13 +9634,13 @@ namespace LitePlacer
                 Loc = Loc.NormalizeHomogeneous();
                 dx = Math.Abs(Loc.X - Fiducials[i].X_machine);
                 dy = Math.Abs(Loc.Y - Fiducials[i].Y_machine);
-                //DisplayText(Fiducials[i].Designator +
-                //    ": x_meas= " + Fiducials[i].X_machine.ToString("0.000", CultureInfo.InvariantCulture) +
-                //    ", x_calc= " + Loc.X.ToString("0.000", CultureInfo.InvariantCulture) +
-                //    ", dx= " + dx.ToString("0.000", CultureInfo.InvariantCulture) +
-                //    ": y_meas= " + Fiducials[i].Y_machine.ToString("0.000", CultureInfo.InvariantCulture) +
-                //    ", y_calc= " + Loc.Y.ToString("0.000", CultureInfo.InvariantCulture) +
-                //    ", dy= " + dy.ToString("0.000", CultureInfo.InvariantCulture));
+                DisplayText(Fiducials[i].Designator +
+                    ": x_meas= " + Fiducials[i].X_machine.ToString("0.000", CultureInfo.InvariantCulture) +
+                    ", x_calc= " + Loc.X.ToString("0.000", CultureInfo.InvariantCulture) +
+                    ", dx= " + dx.ToString("0.000", CultureInfo.InvariantCulture) +
+                    ": y_meas= " + Fiducials[i].Y_machine.ToString("0.000", CultureInfo.InvariantCulture) +
+                    ", y_calc= " + Loc.Y.ToString("0.000", CultureInfo.InvariantCulture) +
+                    ", dy= " + dy.ToString("0.000", CultureInfo.InvariantCulture));
                 if ((Math.Abs(dx) > 0.4) || (Math.Abs(dy) > 0.4))
                 {
                     DataOk = false;
@@ -9647,10 +9648,10 @@ namespace LitePlacer
             };
             if (!DataOk)
             {
-                //DisplayText(" ** A fiducial moved more than 0.4mm from its measured location");
-                //DisplayText(" ** when applied the same calculations than regular componets.");
-                //DisplayText(" ** (Maybe the camera picked a via instead of a fiducial?)");
-                //DisplayText(" ** Placement data is likely not good.");
+                DisplayText(" ** A fiducial moved more than 0.4mm from its measured location");
+                DisplayText(" ** when applied the same calculations than regular componets.");
+                DisplayText(" ** (Maybe the camera picked a via instead of a fiducial?)");
+                DisplayText(" ** Placement data is likely not good.");
                 DialogResult dialogResult = ShowMessageBox(
                     "Nominal to machine trasnformation seems to be off. (See log window)",
                     "Cancel operation?",
@@ -11085,7 +11086,7 @@ namespace LitePlacer
 
         private void Invoke_TapeEditDialog(int row)
         {
-            //DisplayText("Open edit tape dialog", KnownColor.DarkGreen);
+            DisplayText("Open edit tape dialog", KnownColor.DarkGreen);
             TapeEditForm TapeEditDialog = new TapeEditForm(Cnc, DownCamera);
             TapeEditDialog.MainForm = this;
             TapeEditDialog.TapeRowNo = TapesGridEditRow;
@@ -11262,7 +11263,7 @@ namespace LitePlacer
             TapeDialog.ShowDialog(this);
 
             string ID = TapeDialog.ID;  // get the result
-            //DisplayText("Selected tape: " + ID);
+            DisplayText("Selected tape: " + ID);
 
             Tapes_tabPage.Controls.Add(Tapes_dataGridView);
             Tapes_dataGridView = Grid;
@@ -11816,7 +11817,7 @@ namespace LitePlacer
         {
             double Xmark = Cnc.CurrentX;
             double Ymark = Cnc.CurrentY;
-            //DisplayText("test 1: Pick up this (probing)");
+            DisplayText("test 1: Pick up this (probing)");
             //Cnc.PumpOn();
             Cnc.VacuumOff();
             if (!Nozzle.Move_m(Cnc.CurrentX, Cnc.CurrentY, Cnc.CurrentA))
@@ -11841,7 +11842,7 @@ namespace LitePlacer
         {
             double Xmark = Cnc.CurrentX;
             double Ymark = Cnc.CurrentY;
-            //DisplayText("test 2: Place here (probing)");
+            DisplayText("test 2: Place here (probing)");
             if (!Nozzle.Move_m(Cnc.CurrentX, Cnc.CurrentY, Cnc.CurrentA))
             {
                 return;
@@ -11897,7 +11898,7 @@ namespace LitePlacer
         // test 6
         private void Test6_button_Click(object sender, EventArgs e)
         {
-            //DisplayText("test 6: Nozzle up");
+            DisplayText("test 6: Nozzle up");
             CNC_Z_m(0);  // go up
             CNC_XY_m(Xmark, Ymark);
         }
@@ -12263,10 +12264,10 @@ namespace LitePlacer
             }
             X = X * mmPerPixel;
             Y = -Y * mmPerPixel;
-            //DisplayText("Component measurement:");
-            //DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture) + " (" + count.ToString() + " results out of 5)");
-            //DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
-            //DisplayText("A: " + A.ToString("0.000", CultureInfo.InvariantCulture));
+            DisplayText("Component measurement:");
+            DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture) + " (" + count.ToString() + " results out of 5)");
+            DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
+            DisplayText("A: " + A.ToString("0.000", CultureInfo.InvariantCulture));
         }
 
 
@@ -12444,7 +12445,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("Up camera is not running.");
+                DisplayText("Up camera is not running.");
             }
         }
 
@@ -12457,7 +12458,7 @@ namespace LitePlacer
             }
             else
             {
-                //DisplayText("Up camera is not running.");
+                DisplayText("Up camera is not running.");
             }
         }
 
@@ -12520,21 +12521,21 @@ namespace LitePlacer
 
                 if (tries >= 9)
                 {
-                    //DisplayText("Can't see Nozzle, no results.");
+                    DisplayText("Can't see Nozzle, no results.");
                     UpCamera.SizeLimited = false;
                     return;
                 }
             }
             Xpx = X * UpCamera.GetMeasurementZoom();
             Ypx = Y * UpCamera.GetMeasurementZoom();
-            //DisplayText(res.ToString() + " candidates, smallest: ");
-           // DisplayText("radius: " + radius.ToString("0.000", CultureInfo.InvariantCulture) + " pixels, "
-           //     + (radius * Setting.UpCam_XmmPerPixel).ToString("0.000", CultureInfo.InvariantCulture) + "mm");
-            //DisplayText("X: " + Xpx.ToString() + " pixels, Y: " + Ypx.ToString() + " pixels");
+            DisplayText(res.ToString() + " candidates, smallest: ");
+            DisplayText("radius: " + radius.ToString("0.000", CultureInfo.InvariantCulture) + " pixels, "
+                + (radius * Setting.UpCam_XmmPerPixel).ToString("0.000", CultureInfo.InvariantCulture) + "mm");
+            DisplayText("X: " + Xpx.ToString() + " pixels, Y: " + Ypx.ToString() + " pixels");
             X = X * Setting.UpCam_XmmPerPixel;
             Y = -Y * Setting.UpCam_YmmPerPixel;
-            //DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture));
-            //DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
+            DisplayText("X: " + X.ToString("0.000", CultureInfo.InvariantCulture));
+            DisplayText("Y: " + Y.ToString("0.000", CultureInfo.InvariantCulture));
             UpCamera.SizeLimited = false;
         }
 
