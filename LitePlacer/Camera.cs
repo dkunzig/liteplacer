@@ -173,7 +173,7 @@ namespace LitePlacer
             {
 
                // MJPEGStream VideoSource = new MJPEGStream("http://192.168.0.17:81/stream");
-                VideoSource = new MJPEGStream("http://192.168.0.24:81/stream");
+                VideoSource = new MJPEGStream("http://10.0.0.80:81/stream");
                // VideoSource = new MJPEGStream("http://10.0.0.201");
                // VideoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
              //   VideoSource.Start();  //bob
