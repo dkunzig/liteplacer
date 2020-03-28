@@ -3210,32 +3210,32 @@ namespace LitePlacer
                 return true;
             };
 
-            DownCamera.Active = false;
-            if (Setting.DowncamMoniker == "")
-            {
-                // Very first runs, no attempt to connect cameras yet. This is ok.
-                UpdateCameraCameraStatus_label();
-                return true;
-            };
-            // Check that the device exists
-            List<string> monikers = DownCamera.GetMonikerStrings();
-            if (!monikers.Contains(Setting.DowncamMoniker))
-            {
-                DisplayText("Downcamera moniker not found. Moniker: " + Setting.DowncamMoniker);
-                UpdateCameraCameraStatus_label();
-                return false;
-            }
+            //DownCamera.Active = false;
+            //if (Setting.DowncamMoniker == "")
+            //{
+            //    // Very first runs, no attempt to connect cameras yet. This is ok.
+            //    UpdateCameraCameraStatus_label();
+            //    return true;
+            //};
+            //// Check that the device exists
+            //List<string> monikers = DownCamera.GetMonikerStrings();
+            //if (!monikers.Contains(Setting.DowncamMoniker))
+            //{
+            //    DisplayText("Downcamera moniker not found. Moniker: " + Setting.DowncamMoniker);
+            //    UpdateCameraCameraStatus_label();
+            //    return false;
+            //}
 
-            if (Setting.UpcamMoniker == Setting.DowncamMoniker)
-            {
-                ShowMessageBox(
-                    "Up camera and Down camera point to same physical device.",
-                    "Camera selection isse",
-                    MessageBoxButtons.OK
-                );
-                UpdateCameraCameraStatus_label();
-                return false;
-            }
+            //if (Setting.UpcamMoniker == Setting.DowncamMoniker)
+            //{
+            //    ShowMessageBox(
+            //        "Up camera and Down camera point to same physical device.",
+            //        "Camera selection isse",
+            //        MessageBoxButtons.OK
+            //    );
+            //    UpdateCameraCameraStatus_label();
+            //    return false;
+            //}
 
             if (!DownCamera.Start("DownCamera", Setting.DowncamMoniker))
             {

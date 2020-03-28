@@ -21,8 +21,7 @@ namespace LitePlacer
 {
     public class Camera
     {
-       // private VideoCaptureDevice VideoSource = null;//bob
-        MJPEGStream VideoSource = null;
+        private VideoCaptureDevice VideoSource = null;
         private FormMain MainForm;
 
         public Camera(FormMain MainF)
@@ -63,16 +62,16 @@ namespace LitePlacer
                 VideoSource.WaitForStop();  // problem?
                 VideoSource.NewFrame -= new NewFrameEventHandler(Video_NewFrame);
                 VideoSource = null;
-                MainForm.DisplayText(Id + " stop: " + MonikerString);
+                //MainForm.DisplayText(Id + " stop: " + MonikerString);
                 MonikerString = "Stopped";
             }
         }
 
-        //public void DisplayPropertyPage()
-        //{
-        //    VideoSource.DisplayPropertyPage(IntPtr.Zero);
+        public void DisplayPropertyPage()
+        {
+            VideoSource.DisplayPropertyPage(IntPtr.Zero);
 
-        //}
+        }
 
         // Program has been crashing due to access of ImageBox.  As a shared resource it needs
         // to be accessed in protected regions.  The lock _locker is to be used for this purpose.
@@ -133,12 +132,12 @@ namespace LitePlacer
             // create video source
             if (videoDevices == null)
             {
-                MainForm.DisplayText("No Cameras.", KnownColor.Purple);
+                //MainForm.DisplayText("No Cameras.", KnownColor.Purple);
                 return;
             }
             if (videoDevices.Count == 0)
             {
-                MainForm.DisplayText("No Cameras.", KnownColor.Purple);
+                //MainForm.DisplayText("No Cameras.", KnownColor.Purple);
                 return;
             }
             VideoCaptureDevice source = new VideoCaptureDevice(MonikerStr);
@@ -155,14 +154,14 @@ namespace LitePlacer
                 {
                     for (int i = 0; i < source.VideoCapabilities.Length; i++)
                     {
-                        MainForm.DisplayText("X: " + source.VideoCapabilities[i].FrameSize.Width.ToString() +
-                            ", Y: " + source.VideoCapabilities[i].FrameSize.Height.ToString());
+                       // MainForm.DisplayText("X: " + source.VideoCapabilities[i].FrameSize.Width.ToString() +
+                       //     ", Y: " + source.VideoCapabilities[i].FrameSize.Height.ToString());
                     }
                     return;
                 }
             }
             // if we didn't return from above:
-            MainForm.DisplayText("Could not get resolution info.", KnownColor.Purple);
+           // MainForm.DisplayText("Could not get resolution info.", KnownColor.Purple);
         }
 
         // =================================================================================================
@@ -170,22 +169,19 @@ namespace LitePlacer
         {
             try
             {
-
-               // MJPEGStream VideoSource = new MJPEGStream("http://10.0.0.52:81/stream");
-                VideoSource = new MJPEGStream("http://192.168.1.184:81/stream?resolution=640x480");
-                //"http://10.7.6.19/axis-cgi/mjpg/video.cgi?resolution=640x480",
-                VideoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
-                //   VideoSource.Start();  //ob
-
-
-                // MainForm.DisplayText(cam + " start, moniker= " + MonikerStr);
+                //MainForm.DisplayText(cam + " start, moniker= " + MonikerStr);
 
                 // enumerate video devices
                 FilterInfoCollection videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
                 // create the video source (check that the camera exists is already done
-              //  VideoSource = new VideoCaptureDevice(MonikerStr);  //bob
+
+                MJPEGStream videoSource = new MJPEGStream("http://192.168.1.38");
+                videoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
+                videoSource.Start();
+
+                //VideoSource = new VideoCaptureDevice(MonikerStr);
                 int tries = 0;
-                while (tries < 4)
+                while (tries < 20)
                 {
                     if (VideoSource != null)
                     {
@@ -197,35 +193,34 @@ namespace LitePlacer
                         tries++;
                     }
                 }
-                if (tries>=4)
+                if (tries>=20)
                 {
-                    MainForm.DisplayText("Could not get resolution info");
+                   // MainForm.DisplayText("Could not get resolution info");
                     return false;
                 }
-                
-                //if (VideoSource.VideoCapabilities.Length <= 0)
-                //{
-                //    MainForm.DisplayText("Could not get resolution info");  //bob
-                //    return false;
-                //}
+                if (VideoSource.VideoCapabilities.Length <= 0)
+                {
+                   // MainForm.DisplayText("Could not get resolution info");
+                    return false;
+                }
 
-                bool fine = true;
-                //for (int i = 0; i < VideoSource.VideoCapabilities.Length; i++)
-                //{
-                //    if ((VideoSource.VideoCapabilities[i].FrameSize.Width== DesiredX)
-                //        &&
-                //        (VideoSource.VideoCapabilities[i].FrameSize.Height == DesiredY)) //bob
-                //    {
-                //        VideoSource.VideoResolution = VideoSource.VideoCapabilities[i];
-                //        fine = true;
-                //        break;
-                //    }
-                //}
-                //if (!fine)
-                //{
-                //    MainForm.DisplayText("Desired resolution not available");
-                //    return false;
-                //}
+                bool fine = false;
+                for (int i = 0; i < VideoSource.VideoCapabilities.Length; i++)
+                {
+                    if ((VideoSource.VideoCapabilities[i].FrameSize.Width== DesiredX)
+                        &&
+                        (VideoSource.VideoCapabilities[i].FrameSize.Height == DesiredY))
+                    {
+                        VideoSource.VideoResolution = VideoSource.VideoCapabilities[i];
+                        fine = true;
+                        break;
+                    }
+                }
+                if (!fine)
+                {
+                    //MainForm.DisplayText("Desired resolution not available");
+                    return false;
+                }
 
                 VideoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
                 ReceivingFrames = false;
@@ -253,10 +248,10 @@ namespace LitePlacer
                 }
                 if (!ReceivingFrames)
                 {
-                    MainForm.DisplayText("Camera started, but is not sending video");
+                    //MainForm.DisplayText("Camera started, but is not sending video");
                     return false;
                 }
-                MainForm.DisplayText("*** Camera started: " + tries.ToString(), KnownColor.Purple);
+                //MainForm.DisplayText("*** Camera started: " + tries.ToString(), KnownColor.Purple);
 
                 // We managed to start the camera using desired resolution
                 FrameSizeX = DesiredX;
@@ -336,7 +331,7 @@ namespace LitePlacer
             int B_col = (int)DataGridViewColumns.B;
 
             NewList.Clear();
-            MainForm.DisplayText("BuildFunctionsList:");
+            //MainForm.DisplayText("BuildFunctionsList:");
 
             foreach (DataGridViewRow Row in Grid.Rows)
             {
@@ -453,7 +448,7 @@ namespace LitePlacer
                 }
                 msg += " / ";
                 NewList.Add(f);
-                MainForm.DisplayText(msg);
+               // MainForm.DisplayText(msg);
             };
             return NewList;
         }
@@ -541,7 +536,7 @@ namespace LitePlacer
                 Graphics g = Graphics.FromImage(TemporaryFrame);
                 g.Clear(Color.Black);
                 g.Dispose();
-                MainForm.DisplayText("*** GetMeasurementFrame() failed!", KnownColor.Purple);
+                //MainForm.DisplayText("*** GetMeasurementFrame() failed!", KnownColor.Purple);
                 return TemporaryFrame;
             }
 

@@ -29,7 +29,7 @@ namespace LitePlacer
             get
             {
                 //if (webs!= null && webs.ReadyState == WebSocketState.Open)
-                if (webs != null && webs.IsAlive)
+                if (webs != null) // && webs.IsAlive)
                     return true;
                 else
                     return false;
